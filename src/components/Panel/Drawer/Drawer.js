@@ -93,16 +93,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [searchText, setSearchText] = React.useState('');
 
     const handleDrawerOpen = () => {
         setOpen(true);
+        props.setDrawerOpen();
     };
 
     const handleDrawerClose = () => {
         setOpen(false);
+        props.setDrawerOpen();
     };
 
     return (
@@ -144,6 +147,15 @@ export default function MiniDrawer() {
                                     type='text'
                                     className='search-input'
                                     placeholder='Please search something'
+                                    onChange={(e) => {
+                                        setSearchText(e.target.value);
+                                    }}
+                                    onKeyUp={(e) => {
+                                        if (e.key === 'Enter') {
+                                            props.setSearch(searchText);
+                                        }
+                                    }}
+                                    value={searchText}
                                 />
                                 <button>
                                     <SearchIcon />

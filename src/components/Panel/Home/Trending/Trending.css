@@ -1,0 +1,34 @@
+.trending-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 600px;
+  overflow-y: auto;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.each-trending-news {
+  display: flex;
+  justify-content: space-between;
+}
+
+.each-trending-news > img {
+  width: 30%;
+  height: 150px;
+}
+
+.each-trending-news > div {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trending-pagination-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  background-color: white;
+  align-items: center;
+}

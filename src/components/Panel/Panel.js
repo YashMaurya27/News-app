@@ -1,19 +1,23 @@
-import { Box } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MiniDrawer, { DrawerHeader } from './Drawer/Drawer';
 import Home from './Home/Home';
 import Profile from './Profile/Profile';
-// import Header from './Header/Header';
 
 export default function Panel() {
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
   const renderRoutes = () => {
     return (
       <Routes>
         <Route
           path='home'
-          element={<Home />}
+          element={<Home
+            drawerOpen={drawerOpen}
+            search={search}
+          />}
         />
         <Route
           path='profile'
@@ -28,19 +32,31 @@ export default function Panel() {
   }
 
   return (
-    <div>
-      <Box sx={{
-        display: 'flex',
-        backgroundColor: '#f8f8f9'
-      }}>
-        <MiniDrawer />
-        <Box component="main" sx={{ flexGrow: 1, p: 1, m: 2 }}>
-          <DrawerHeader />
-          <>
-            {renderRoutes()}
-          </>
-        </Box>
-      </Box>
+    <div style={{
+      display: 'flex',
+    }}>
+      <MiniDrawer
+        setDrawerOpen={() => {
+          setDrawerOpen(!drawerOpen)
+        }
+        }
+        setSearch={(e) => {
+          setSearch(e);
+        }
+        }
+      />
+      <div className='app-container'
+        style={{
+          width: drawerOpen ?
+            'calc(100% - 240px)' :
+            'calc(100% - 65px)'
+        }}
+      >
+        <DrawerHeader />
+        <>
+          {renderRoutes()}
+        </>
+      </div>
     </div>
   )
 }
