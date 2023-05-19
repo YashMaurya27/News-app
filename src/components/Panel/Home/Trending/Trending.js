@@ -67,6 +67,7 @@ export default function Trending(props) {
                     onChange={(e) => {
                         props.setTrendingPageNum(parseInt(e.target.textContent))
                     }}
+                    page={props.trendingPageNum}
                 />
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 60 }}>
                     <Box
@@ -87,6 +88,7 @@ export default function Trending(props) {
                             value={props.trendingSize}
                             onChange={(e) => {
                                 props.setTrendingSize(parseInt(e.target.value));
+                                props.setTrendingPageNum(1);
                             }}
                         >
                             <MenuItem value={10}>10</MenuItem>

@@ -1,12 +1,15 @@
-import { Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { checkStringLength } from '../../functions';
 import './AllNews.css';
 
 export default function AllNews(props) {
+    const navigate = useNavigate();
+
     return (
         <div className='feed-news-container'>
-            {props.feedNews.map((item) => {
+            {props.feedNews.map((item, index) => {
                 return (
                     (item.urlToImage != null) ?
                         <div className='feed-news-card' style={{
@@ -27,7 +30,10 @@ export default function AllNews(props) {
                                     py: 1
                                 }}
                             >
-                                {item.title}
+                                <Link onClick={() => {
+                                    // console.log('view')
+                                    navigate(`article/article_number_${index}`);
+                                }}>{item.title}</Link>
                             </Typography>
                             <Typography
                                 fontSize={14}

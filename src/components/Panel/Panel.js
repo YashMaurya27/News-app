@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Article from './Article/Article';
 import MiniDrawer, { DrawerHeader } from './Drawer/Drawer';
 import Home from './Home/Home';
 import Profile from './Profile/Profile';
@@ -22,6 +23,10 @@ export default function Panel() {
         <Route
           path='profile'
           element={<Profile />}
+        />
+        <Route
+          path='article/:article_id'
+          element={<Article />}
         />
         <Route
           path='*'

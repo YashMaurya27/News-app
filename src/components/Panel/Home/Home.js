@@ -79,6 +79,7 @@ export default function Home(props) {
         setFeedNews(res.data.articles);
         setFeedLoad(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabValue, props.search]);
 
   const getDayName = (dayNum) => {
@@ -274,6 +275,7 @@ export default function Home(props) {
               setTrendingSize={(e) => {
                 setTrendingSize(e);
               }}
+              trendingPageNum={trendingPageNum}
               setTrendingPageNum={(e) => {
                 setTrendingPageNum(e);
               }}
