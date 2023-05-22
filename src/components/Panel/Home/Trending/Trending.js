@@ -6,55 +6,67 @@ import { checkStringLength, removeSource } from '../../functions';
 import './Trending.css';
 
 export default function Trending(props) {
+
     return (
         <>
             <div className='trending-container'>
-                {props.trendingNews.map((item) => {
-
+                {props.trendingNews.map((item, index) => {
+                    console.log('rendering', item.title)
                     return (
-                        item.content ?
-                            <div className='each-trending-news'>
-                                <img src={item.urlToImage} alt='trending-news' />
-                                <div>
-                                    <Typography
-                                        fontSize={16}
-                                        fontWeight={500}
-                                    >
-                                        {removeSource(item.title)}
-                                    </Typography>
+                        <div className='each-trending-news' key={`${index}div`}>
+                            <img
+                                src={item.urlToImage ??
+                                    `https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg`}
+                                alt='trending-news'
+                                key={`${index}img`}
+                            />
+                            <div key={`${index}innerDiv`}>
+                                <Typography
+                                    fontSize={16}
+                                    fontWeight={500}
+                                    key={`${index}title`}
+                                >
+                                    {removeSource(item.title)}
+                                </Typography>
+                                <Typography
+                                    fontSize={14}
+                                    fontWeight='200'
+                                    color={'GrayText'}
+                                    key={`${index}content`}
+                                >
+                                    {(item.content) ?
+                                        <>
+                                            {checkStringLength(item.content, 20)}
+                                            {' '}<Link href='#'>Read More</Link>
+                                        </> : 'No content available'}
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}
+                                    key={`${index}box`}
+                                >
                                     <Typography
                                         fontSize={14}
-                                        fontWeight='200'
                                         color={'GrayText'}
+                                        key={`${index}published`}
                                     >
-                                        {checkStringLength(item.content, 20)}
-                                        {' '}<Link href='#'>Read More</Link>
+                                        {item.publishedAt.substr(0, 10)}
                                     </Typography>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center'
-                                        }}
-                                    >
-                                        <Typography
-                                            fontSize={14}
-                                            color={'GrayText'}
-                                        >
-                                            {item.publishedAt.substr(0, 10)}
-                                        </Typography>
 
-                                        <Link
-                                            fontSize={14}
-                                            href='#'
-                                        >
-                                            {item.source.name}
-                                        </Link>
-                                        {/* </Typography> */}
-                                    </Box>
-                                </div>
-                            </div> :
-                            <></>
+                                    <Link
+                                        fontSize={14}
+                                        href='#'
+                                        key={`${index}source`}
+                                    >
+                                        {item.source.name}
+                                    </Link>
+                                    {/* </Typography> */}
+                                </Box>
+                            </div>
+                        </div>
                     )
 
 
@@ -63,7 +75,7 @@ export default function Trending(props) {
             <Divider />
             <div className='trending-pagination-container'>
                 <Pagination
-                    count={Math.ceil(props.totalTrending / props.trendingSize)}
+                    count={(Math.ceil(props.totalTrending ?? 1 / props.trendingSize ?? 1))}
                     onChange={(e) => {
                         props.setTrendingPageNum(parseInt(e.target.textContent))
                     }}

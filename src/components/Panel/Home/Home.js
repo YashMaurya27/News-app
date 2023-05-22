@@ -261,8 +261,8 @@ export default function Home(props) {
                 // label="Age"
                 onChange={(e) => handleCountryChange(e.target.value)}
               >
-                {flag_data.map((country) => {
-                  return <MenuItem value={country.code}>
+                {flag_data.map((country, index) => {
+                  return <MenuItem value={country.code} key={`${index}flag`}>
                     {country.flag}
                   </MenuItem>
                 })}
