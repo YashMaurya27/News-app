@@ -3,4 +3,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  height: 705px;
+  overflow-y: auto;
+  background-color: white;
 }

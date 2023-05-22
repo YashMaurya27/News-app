@@ -31,7 +31,6 @@ export default function AllNews(props) {
                                 }}
                             >
                                 <Link onClick={() => {
-                                    // console.log('view')
                                     navigate(`article/article_number_${index}`);
                                 }}>{item.title}</Link>
                             </Typography>

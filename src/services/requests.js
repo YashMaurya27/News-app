@@ -22,7 +22,6 @@ export const GET = (endpoint, params = {}, fullURL = false) => {
     })
         .then((res) => res.json())
         .then((e) => {
-            // console.log(e);
             if (e.status === 'ok') {
                 return {
                     success: true,

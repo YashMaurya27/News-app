@@ -130,11 +130,14 @@ export default function Home(props) {
           width:
           {
             xs: '100%', sm: '100%', md: "50%",
-            lg: props.drawerOpen ? '56.3%' : '62.4%'
+            lg: props.drawerOpen ? '53%' : '58%'
           },
           // { xs: '100%', sm: '100%', md: "50%", lg: '60%' },
           bgcolor: 'background.paper',
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;'
+          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;',
+          position: 'fixed',
+          left: props.drawerOpen ? '250px' : '80px',
+          top: '78px',
         }}>
           <Box sx={{
             display: 'flex',
