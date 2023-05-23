@@ -54,7 +54,7 @@ export default function Home(props) {
     setTrendingLoad(true);
     const params = {
       country: country,
-      apiKey: 'de713b26887d4c68a61209262645aa51',
+      apiKey: '9bce5c178863445ab7fdd3b59d95ea44',
       pageSize: trendingSize,
       page: trendingPageNum
     };
@@ -72,7 +72,7 @@ export default function Home(props) {
       q: (props.search !== '') ?
         props.search :
         categories[tabValue].toLowerCase(),
-      apiKey: 'de713b26887d4c68a61209262645aa51'
+      apiKey: '9bce5c178863445ab7fdd3b59d95ea44'
     };
     GET('everything', params)
       .then((res) => {
@@ -118,30 +118,44 @@ export default function Home(props) {
 
   return (
     <>
-      <div style={{
-        display: 'flex',
-        // alignItems: 'center',
-        justifyContent: 'space-between',
-        overflowX: 'hidden',
-        padding: '15px',
-        position: 'relative'
+      <Box sx={{
+        display: {
+          sm: 'flex',
+          md: 'block'
+        },
+        flexDirection: 'column-reverse'
       }}>
         <Box sx={{
           width:
           {
-            xs: '100%', sm: '100%', md: "50%",
-            lg: props.drawerOpen ? '53%' : '58%'
+            xs: '100%',
+            sm: '100%',
+            md: props.drawerOpen ?
+              'calc(100% - 540px)' :              //300px of trending container + 240px of opened drawer
+              'calc(100% - 465px)',                //400px of trending container + 65px of closed drawer
+            lg: props.drawerOpen ?
+              'calc(100% - 640px)' :              //400px of trending container + 240px of opened drawer
+              'calc(100% - 515px)'                //450px of trending container + 65px of closed drawer
           },
           // { xs: '100%', sm: '100%', md: "50%", lg: '60%' },
           bgcolor: 'background.paper',
           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;',
-          position: 'fixed',
-          left: props.drawerOpen ? '250px' : '80px',
-          top: '78px',
+          position: {
+            sm: 'relative',
+            md: 'fixed'
+          },
+          left: {
+            sm: 'auto',
+            md: props.drawerOpen ? '240px' : '65px'
+          },
+          top: {
+            sm: 'auto',
+            md: '78px'
+          },
         }}>
           <Box sx={{
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
           }}>
             <Box sx={{
               width: { md: 150 },
@@ -219,11 +233,24 @@ export default function Home(props) {
 
         </Box>
         <Box sx={{
-          width: { xs: '0%', sm: '0%', md: "49%", lg: '35%' },
-          display: { xs: 'none', sm: 'none', md: 'block', },
-          position: 'fixed',
-          right: '0px',
-          top: '78px',
+          width: {
+            xs: '0%',
+            sm: '100%',
+            md: props.drawerOpen ? '300px' : "400px",
+            lg: props.drawerOpen ? '400px' : '450px'
+          },
+          position: {
+            sm: 'relative',
+            md: 'fixed'
+          },
+          right: {
+            sm: 'auto',
+            md: '0px'
+          },
+          top: {
+            sm: 'auto',
+            md: '78px'
+          },
           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;'
         }}>
           <Box sx={{
@@ -240,8 +267,6 @@ export default function Home(props) {
               sx={{
                 opacity: '0.8',
               }}>TRENDING THIS WEEK</Typography>
-            {/* <IconButton> */}
-            {/* <TuneIcon /> */}
             <Box sx={{
               display: 'flex',
               alignItems: 'center',
@@ -258,7 +283,6 @@ export default function Home(props) {
                   width: '75px'
                 }}
                 value={country}
-                // label="Age"
                 onChange={(e) => handleCountryChange(e.target.value)}
               >
                 {flag_data.map((country, index) => {
@@ -284,7 +308,7 @@ export default function Home(props) {
               }}
             />}
         </Box>
-      </div>
+      </Box>
     </>
   )
 }

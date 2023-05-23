@@ -32,3 +32,13 @@
   background-color: white;
   align-items: center;
 }
+
+@media screen and (max-width: 899px) {
+  .trending-container {
+    display: block;
+    height: 600px;
+    overflow-y: auto;
+    padding: 0 10px;
+    background-color: white;
+  }
+}

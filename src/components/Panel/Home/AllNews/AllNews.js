@@ -1,4 +1,4 @@
-import { Link, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkStringLength } from '../../functions';
@@ -11,37 +11,43 @@ export default function AllNews(props) {
         <div className='feed-news-container'>
             {props.feedNews.map((item, index) => {
                 return (
-                    (item.urlToImage != null) ?
-                        <div className='feed-news-card' style={{
-                            width: props.drawerOpen ? '90%' : '45%',
-                            height: props.drawerOpen ? '600px' : '400px',
-                            padding: '0 10px'
-                        }}>
-                            <img src={item.urlToImage} alt='feed-news'
-                                style={{
-                                    height: props.drawerOpen ? '400px' : '200px',
-                                    width: '100%',
-                                }}
-                            />
-                            <Typography
-                                fontSize={16}
-                                fontWeight={600}
-                                sx={{
-                                    py: 1
-                                }}
-                            >
-                                <Link onClick={() => {
-                                    navigate(`article/article_number_${index}`);
-                                }}>{item.title}</Link>
-                            </Typography>
-                            <Typography
-                                fontSize={14}
-                            >
-                                {checkStringLength(item.content, 30)}
-                            </Typography>
-                        </div>
-                        :
-                        <></>
+
+                    <Box sx={{
+                        width: {
+                            xs: '100%',
+                            sm: '100%',
+                            md: '90%',
+                            lg: props.drawerOpen ? '90%' : '45%'
+                        },
+                        height: props.drawerOpen ? '600px' : '400px',
+                        padding: '0 10px'
+                    }}>
+                        <img
+                            src={item.urlToImage ??
+                                `https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg`}
+                            alt='feed-news'
+                            style={{
+                                height: props.drawerOpen ? '400px' : '200px',
+                                width: '100%',
+                            }}
+                        />
+                        <Typography
+                            fontSize={16}
+                            fontWeight={600}
+                            sx={{
+                                py: 1
+                            }}
+                        >
+                            <Link onClick={() => {
+                                navigate(`article/article_number_${index}`);
+                            }}>{item.title}</Link>
+                        </Typography>
+                        <Typography
+                            fontSize={14}
+                        >
+                            {checkStringLength(item.content, 30)}
+                        </Typography>
+                    </Box>
                 )
             })}
         </div>
