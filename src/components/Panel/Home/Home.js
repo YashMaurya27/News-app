@@ -119,11 +119,12 @@ export default function Home(props) {
   return (
     <>
       <Box sx={{
-        display: {
-          sm: 'flex',
-          md: 'block'
+        display: 'flex',
+        flexDirection: {
+          xs: 'column-reverse',
+          md: 'row'
         },
-        flexDirection: 'column-reverse'
+        justifyContent: 'space-between'
       }}>
         <Box sx={{
           width:
@@ -131,27 +132,14 @@ export default function Home(props) {
             xs: '100%',
             sm: '100%',
             md: props.drawerOpen ?
-              'calc(100% - 540px)' :              //300px of trending container + 240px of opened drawer
-              'calc(100% - 465px)',                //400px of trending container + 65px of closed drawer
+              'calc(100% - 300px)' :              //300px of trending container
+              'calc(100% - 400px)',               //400px of trending container
             lg: props.drawerOpen ?
-              'calc(100% - 640px)' :              //400px of trending container + 240px of opened drawer
-              'calc(100% - 515px)'                //450px of trending container + 65px of closed drawer
+              'calc(100% - 400px)' :              //400px of trending container
+              'calc(100% - 450px)'                //450px of trending container
           },
-          // { xs: '100%', sm: '100%', md: "50%", lg: '60%' },
           bgcolor: 'background.paper',
           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;',
-          position: {
-            sm: 'relative',
-            md: 'fixed'
-          },
-          left: {
-            sm: 'auto',
-            md: props.drawerOpen ? '240px' : '65px'
-          },
-          top: {
-            sm: 'auto',
-            md: '78px'
-          },
         }}>
           <Box sx={{
             display: 'flex',
@@ -234,22 +222,10 @@ export default function Home(props) {
         </Box>
         <Box sx={{
           width: {
-            xs: '0%',
+            xs: '100%',
             sm: '100%',
             md: props.drawerOpen ? '300px' : "400px",
             lg: props.drawerOpen ? '400px' : '450px'
-          },
-          position: {
-            sm: 'relative',
-            md: 'fixed'
-          },
-          right: {
-            sm: 'auto',
-            md: '0px'
-          },
-          top: {
-            sm: 'auto',
-            md: '78px'
           },
           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;'
         }}>
@@ -309,6 +285,13 @@ export default function Home(props) {
             />}
         </Box>
       </Box>
+      {/* <Box sx={{
+        backgroundColor: 'grey',
+      }}>
+        <div style={{
+          height: '500px'
+        }}></div>
+      </Box> */}
     </>
   )
 }
