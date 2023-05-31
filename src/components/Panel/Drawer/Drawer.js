@@ -148,6 +148,7 @@ export default function MiniDrawer(props) {
                                     className='search-input'
                                     placeholder='Please search something'
                                     onChange={(e) => {
+                                        // props.setSearch(e.target.value);
                                         setSearchText(e.target.value);
                                     }}
                                     onKeyUp={(e) => {

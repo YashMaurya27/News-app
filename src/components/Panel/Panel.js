@@ -18,6 +18,9 @@ export default function Panel() {
           element={<Home
             drawerOpen={drawerOpen}
             search={search}
+            setSearch={(e) => {
+              setSearch(e);
+            }}
           />}
         />
         <Route
@@ -45,6 +48,7 @@ export default function Panel() {
           setDrawerOpen(!drawerOpen)
         }
         }
+        search={search}
         setSearch={(e) => {
           setSearch(e);
         }

@@ -186,7 +186,9 @@ export default function Home(props) {
                 >
                   <i>Showing results for '<b>{props.search}</b>'</i>
                 </Typography>
-                <IconButton>
+                <IconButton onClick={() => {
+                  props.setSearch('');
+                }}>
                   <ClearIcon />
                 </IconButton>
               </Box>
@@ -199,7 +201,8 @@ export default function Home(props) {
                 textColor='inherit'
                 indicatorColor='primary'
                 sx={{
-                  width: props.drawerOpen ? 450 : 600
+                  // width: props.drawerOpen ? 450 : 600
+                  width: '-webkit-fill-available'
                 }}
               >
                 <Tab label="Business" />
