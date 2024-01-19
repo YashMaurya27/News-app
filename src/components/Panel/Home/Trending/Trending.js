@@ -45,13 +45,17 @@ export default function Trending(props) {
                                     key={`${index}img`}
                                 />
                                 <div key={`${index}innerDiv`}>
-                                    <Typography
-                                        fontSize={16}
+                                    <Link
+                                        fontSize={14}
                                         fontWeight={500}
                                         key={`${index}title`}
+                                        onClick={() => {
+                                            window.open(item?.['url'], '_blank').focus();
+                                        }}
+                                        style={{ cursor: 'pointer' }}
                                     >
                                         {removeSource(item.title)}
-                                    </Typography>
+                                    </Link>
                                     <Typography
                                         fontSize={14}
                                         fontWeight='200'
@@ -61,7 +65,10 @@ export default function Trending(props) {
                                         {(item.content) ?
                                             <>
                                                 {checkStringLength(item.content, 20)}
-                                                {' '}<Link href='#'>Read More</Link>
+                                                {' '}<Link onClick={() => {
+                                                    window.open(item?.['url'], '_blank').focus();
+                                                }}
+                                                    style={{ cursor: 'pointer' }}>Read More</Link>
                                             </> : 'No content available'}
                                     </Typography>
                                     <Box
@@ -80,13 +87,13 @@ export default function Trending(props) {
                                             {item.publishedAt.substr(0, 10)}
                                         </Typography>
 
-                                        <Link
+                                        <Typography
                                             fontSize={14}
-                                            href='#'
+                                            // href='#'
                                             key={`${index}source`}
                                         >
                                             {item.source.name}
-                                        </Link>
+                                        </Typography>
                                         {/* </Typography> */}
                                     </Box>
                                 </div>

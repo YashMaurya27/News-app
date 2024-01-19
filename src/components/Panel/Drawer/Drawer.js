@@ -21,12 +21,30 @@ import MailIcon from '@mui/icons-material/Mail';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
+import HomeIcon from '@mui/icons-material/Home';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import SaveIcon from '@mui/icons-material/Save';
 import './Drawer.css';
 import { Button } from '@mui/material';
 // import { InputBase, Paper, TextField } from '@mui/material';
 // import SearchIcon from '@mui/icons-material/Search';
 
 const drawerWidth = 240;
+
+const menuOptions = [
+    {
+        label: 'Home',
+        image: <HomeIcon />,
+    },
+    {
+        label: 'Bookmarks',
+        image: <BookmarkBorderIcon />,
+    },
+    {
+        label: 'Saved',
+        image: <SaveIcon />,
+    }
+];
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -178,8 +196,8 @@ export default function MiniDrawer(props) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                    {menuOptions.map((option, index) => (
+                        <ListItem key={option?.['label']} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -194,15 +212,15 @@ export default function MiniDrawer(props) {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    {option?.['image']}
                                 </ListItemIcon>
-                                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={option?.['label']} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
-                <List>
+                {/* <List>
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
@@ -225,7 +243,7 @@ export default function MiniDrawer(props) {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
             </Drawer>
         </>
     );

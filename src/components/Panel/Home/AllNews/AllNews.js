@@ -1,11 +1,12 @@
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { checkStringLength } from '../../functions';
 import './AllNews.css';
+import { Bookmark } from '@mui/icons-material';
 
 export default function AllNews(props) {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return (
         <div className='feed-news-container'>
@@ -38,15 +39,25 @@ export default function AllNews(props) {
                                 py: 1
                             }}
                         >
-                            <Link onClick={() => {
-                                navigate(`article/article_number_${index}`);
-                            }}>{item.title}</Link>
+                            <Link
+                                onClick={() => {
+                                    window.open(item?.['url'], '_blank').focus();
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {item.title}
+                            </Link>
                         </Typography>
                         <Typography
                             fontSize={14}
                         >
                             {checkStringLength(item.content, 30)}
                         </Typography>
+                        <Box display={'flex'} justifyContent={'end'}>
+                            <Button endIcon={<Bookmark />}>
+                                Bookmark
+                            </Button>
+                        </Box>
                     </Box>
                 )
             })}
