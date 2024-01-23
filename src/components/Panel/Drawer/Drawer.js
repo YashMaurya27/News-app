@@ -133,8 +133,6 @@ export default function MiniDrawer(props) {
         }
     ];
 
-    console.log('menu', menuOptions);
-
     return (
         <>
             <CssBaseline />
@@ -225,7 +223,7 @@ export default function MiniDrawer(props) {
                                 </ListItemIcon>
                                 <ListItemText primary={option?.['label']} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
-                            {option?.subItems && (
+                            {(option?.subItems && open) && (
                                 <List>
                                     {
                                         option.subItems.map((item, index) => {
@@ -241,8 +239,6 @@ export default function MiniDrawer(props) {
                                                             justifyContent: 'initial',
                                                             display: open ? 'block' : 'none',
                                                             px: 2.5,
-                                                            textWrap: 'wrap',
-                                                            fontSize: '14px'
                                                         }}
                                                     >
                                                         <Box
@@ -254,8 +250,18 @@ export default function MiniDrawer(props) {
                                                                 fontSize='small'
 
                                                             />
-                                                            {`${item?.['title'].split(" ").splice(0, 6).join(" ")}...` || 'N/A'}
-                                                            <DeleteOutlineIcon 
+                                                            <Typography
+                                                                sx={{
+                                                                    textWrap: 'wrap',
+                                                                    fontSize: '14px'
+                                                                }}
+                                                                onClick={() => {
+                                                                    window.open(item?.['url'], '_blank').focus();
+                                                                }}
+                                                            >
+                                                                {`${item?.['title'].split(" ").splice(0, 8).join(" ")}...` || 'N/A'}
+                                                            </Typography>
+                                                            <DeleteOutlineIcon
                                                                 onClick={() => dispatch(removeBookmark(index))}
                                                             />
                                                         </Box>
