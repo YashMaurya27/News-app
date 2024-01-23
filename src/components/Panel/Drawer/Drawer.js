@@ -26,25 +26,14 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import SaveIcon from '@mui/icons-material/Save';
 import './Drawer.css';
 import { Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { removeBookmark } from '../../../redux/infoSlice';
 // import { InputBase, Paper, TextField } from '@mui/material';
 // import SearchIcon from '@mui/icons-material/Search';
 
 const drawerWidth = 240;
-
-const menuOptions = [
-    {
-        label: 'Home',
-        image: <HomeIcon />,
-    },
-    {
-        label: 'Bookmarks',
-        image: <BookmarkBorderIcon />,
-    },
-    {
-        label: 'Saved',
-        image: <SaveIcon />,
-    }
-];
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -115,6 +104,8 @@ export default function MiniDrawer(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [searchText, setSearchText] = React.useState('');
+    const selector = useSelector((state) => state.necessaryInfo);
+    const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -125,6 +116,24 @@ export default function MiniDrawer(props) {
         setOpen(false);
         props.setDrawerOpen();
     };
+
+    const menuOptions = [
+        {
+            label: 'Home',
+            image: <HomeIcon />,
+        },
+        {
+            label: 'Bookmarks',
+            image: <BookmarkBorderIcon />,
+            subItems: selector?.bookmarks ?? []
+        },
+        {
+            label: 'Saved',
+            image: <SaveIcon />,
+        }
+    ];
+
+    console.log('menu', menuOptions);
 
     return (
         <>
@@ -216,6 +225,47 @@ export default function MiniDrawer(props) {
                                 </ListItemIcon>
                                 <ListItemText primary={option?.['label']} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
+                            {option?.subItems && (
+                                <List>
+                                    {
+                                        option.subItems.map((item, index) => {
+                                            return (
+                                                <ListItem
+                                                    key={`${index}-${option['label']}`}
+                                                    disablePadding sx={{ display: 'block' }}
+
+                                                >
+                                                    <ListItemButton
+                                                        sx={{
+                                                            minHeight: 48,
+                                                            justifyContent: 'initial',
+                                                            display: open ? 'block' : 'none',
+                                                            px: 2.5,
+                                                            textWrap: 'wrap',
+                                                            fontSize: '14px'
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            display={'flex'}
+                                                            alignContent={'center'}
+                                                            justifyContent={'space-between'}
+                                                        >
+                                                            <BookmarkAddedIcon
+                                                                fontSize='small'
+
+                                                            />
+                                                            {`${item?.['title'].split(" ").splice(0, 6).join(" ")}...` || 'N/A'}
+                                                            <DeleteOutlineIcon 
+                                                                onClick={() => dispatch(removeBookmark(index))}
+                                                            />
+                                                        </Box>
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            )
+                                        })
+                                    }
+                                </List>
+                            )}
                         </ListItem>
                     ))}
                 </List>

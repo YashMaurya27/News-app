@@ -4,9 +4,17 @@ import React from 'react';
 import { checkStringLength } from '../../functions';
 import './AllNews.css';
 import { Bookmark } from '@mui/icons-material';
+import { removeBookmark, saveBookmarks } from '../../../../redux/infoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 
 export default function AllNews(props) {
     // const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.necessaryInfo);
+    const bookmarkTitles = selector.bookmarks.map((item) => {
+        return item['title'];
+    });
 
     return (
         <div className='feed-news-container'>
@@ -20,8 +28,12 @@ export default function AllNews(props) {
                             md: '90%',
                             lg: props.drawerOpen ? '90%' : '45%'
                         },
-                        height: props.drawerOpen ? '600px' : '400px',
-                        padding: '0 10px'
+                        height: props.drawerOpen ? '600px' : '450px',
+                        padding: '0 10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        margin: '10px 0'
                     }}>
                         <img
                             src={item.urlToImage ??
@@ -54,8 +66,17 @@ export default function AllNews(props) {
                             {checkStringLength(item.content, 30)}
                         </Typography>
                         <Box display={'flex'} justifyContent={'end'}>
-                            <Button endIcon={<Bookmark />}>
-                                Bookmark
+                            <Button
+                                endIcon={
+                                    bookmarkTitles.includes(item.title) ? <BeenhereIcon /> : <Bookmark />
+                                }
+                                onClick={() => {
+                                    dispatch(
+                                        bookmarkTitles.includes(item.title) 
+                                        ? removeBookmark(bookmarkTitles.indexOf(item.title))
+                                        : saveBookmarks(item));
+                                }}>
+                                {bookmarkTitles.includes(item.title) ? 'Bookmarked' : 'Bookmark'}
                             </Button>
                         </Box>
                     </Box>
