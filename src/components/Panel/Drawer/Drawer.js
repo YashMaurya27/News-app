@@ -127,10 +127,10 @@ export default function MiniDrawer(props) {
             image: <BookmarkBorderIcon />,
             subItems: selector?.bookmarks ?? []
         },
-        {
-            label: 'Saved',
-            image: <SaveIcon />,
-        }
+        // {
+        //     label: 'Saved',
+        //     image: <SaveIcon />,
+        // }
     ];
 
     return (
